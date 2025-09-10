@@ -1,3 +1,6 @@
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
 import ConfirmDialog from './components/shared/ConfirmDialog';
 import { motion } from 'framer-motion';
 import './styles/global.css';
@@ -24,18 +27,13 @@ const AnimatedBackground = lazy(() => import('./components/animaciones/AnimatedB
 const InteractiveHummingbird = lazy(() => import('./components/animaciones/InteractiveHummingbird'));
 const PostulacionesTable = lazy(() => import('./components/postulaciones/PostulacionesTable'));
 import { usePostulaciones } from './hooks/usePostulaciones';
+import { SECTIONS } from './constants/sections';
 
 import es from './i18n/es.json';
 import en from './i18n/en.json';
 import './App.css';
 // import Container from '@mui/material/Container';
 // import Button from '@mui/material/Button';
-// import TextField from '@mui/material/TextField';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
 // import TableRow from '@mui/material/TableRow';
 // import Paper from '@mui/material/Paper';
 // import Stack from '@mui/material/Stack';
@@ -45,41 +43,9 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-
-import { SECTIONS } from './constants/sections';
-import { requestNotificationPermission, showNotification } from './utils/notify';
-
-
-
 function App() {
-  // Solicitar permiso de notificaciones al iniciar la app
-  useEffect(() => {
-    requestNotificationPermission();
-  }, []);
-  // Ejemplo: mostrar notificación al agregar una nueva postulación
-  const onAddRowWrapped = () => {
-    const added = handleAddRow();
-    if (added) {
-      showSnack('Fila agregada', 'success');
-      showNotification('Nueva postulación registrada', {
-        body: 'Se agregó una nueva postulación en la app.',
-        icon: '/favicon.ico'
-      });
-    }
-  };
-  // Estado de perfil activo (debe ser el primer hook)
+
   const [activeProfile, setActiveProfile] = useState(() => {
     const saved = localStorage.getItem('activeProfile');
     return saved || '';
@@ -87,6 +53,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem('activeProfile', activeProfile);
   }, [activeProfile]);
+  // Wrapper para agregar fila
+  const onAddRowWrapped = () => {
+    handleAddRow();
+    showSnack('Fila agregada', 'success');
+  };
 
   // Eliminar estado local de darkMode y usar contexto
   const { darkMode, setDarkMode } = useThemeMode();
@@ -340,24 +311,32 @@ function App() {
                         aria-label={`Ir a sección ${section.name}`}
                         role="menuitem"
                         sx={{
-                          minWidth: { xs: 'auto', sm: 120 },
-                          px: { xs: 1.8, sm: 2.4 },
-                          py: { xs: 0.6, sm: 0.9 },
+                          minWidth: { xs: 'auto', sm: 100 },
+                          px: { xs: 1.2, sm: 1.8 },
+                          py: { xs: 0.4, sm: 0.7 },
                           borderRadius: 999,
-                          borderWidth: 1.6,
+                          borderWidth: 1.4,
                           borderStyle: 'solid',
+                          fontWeight: 700,
+                          fontSize: '0.95rem',
+                          letterSpacing: 0.3,
+                          lineHeight: 1.1,
                           ...(selected === idx
                             ? {
                               backgroundColor: 'primary.main',
                               color: 'primary.contrastText',
                               borderColor: 'primary.main',
-                              boxShadow: { xs: 'none', md: '0 6px 16px rgba(115, 74, 145, 0.24)' },
+                              boxShadow: { xs: 'none', md: '0 4px 12px rgba(115, 74, 145, 0.18)' },
                               '&:hover': { backgroundColor: 'primary.dark', borderColor: 'primary.dark' },
                             }
                             : {
-                              color: '#5a357a',
-                              borderColor: 'rgba(115, 74, 145, 0.55)',
-                              '&:hover': { borderColor: 'rgba(115, 74, 145, 0.8)', backgroundColor: 'rgba(232, 213, 246, 0.35)' },
+                              color: (theme) => theme.palette.mode === 'dark' ? '#e0e0e0' : '#5a357a',
+                              borderColor: 'rgba(115, 74, 145, 0.45)',
+                              '&:hover': {
+                                borderColor: 'rgba(115, 74, 145, 0.7)',
+                                backgroundColor: (theme) => theme.palette.mode === 'dark' ? 'rgba(115,74,145,0.13)' : 'rgba(232, 213, 246, 0.25)',
+                                color: (theme) => theme.palette.mode === 'dark' ? '#fff' : '#734a91',
+                              },
                             }),
                         }}
                       >

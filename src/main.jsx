@@ -8,6 +8,7 @@ import getTheme from './theme';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { ThemeModeProvider, useThemeMode } from './context/ThemeModeContext';
 import AppAuthWrapper from './AppAuthWrapper';
+import { BrowserRouter } from 'react-router-dom';
 
 function ThemeRoot() {
   const { darkMode } = useThemeMode();
@@ -25,7 +26,9 @@ function ThemeRoot() {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeModeProvider>
-      <ThemeRoot />
+      <BrowserRouter>
+        <ThemeRoot />
+      </BrowserRouter>
     </ThemeModeProvider>
   </StrictMode>
 );

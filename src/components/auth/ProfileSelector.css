@@ -1,0 +1,44 @@
+.profile-header {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 2rem;
+	width: 100%;
+	padding: 0.5rem 1.5rem 0.5rem 0;
+	background: transparent;
+}
+.profile-info {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.profile-label {
+	font-weight: 600;
+	color: #734a91;
+}
+.profile-select {
+	border-radius: 6px;
+	padding: 0.3rem 1rem;
+	font-size: 1rem;
+	border: 1px solid #a259b6;
+	background: #fff;
+	color: #734a91;
+}
+.profile-actions {
+	display: flex;
+	align-items: center;
+}
+.logout-btn {
+	background: linear-gradient(90deg,#d96083 0%,#734a91 100%);
+	color: #fff;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	padding: 0.5rem 1.5rem;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(220,38,38,0.12);
+	transition: background 0.2s;
+}
+.logout-btn:hover {
+	background: linear-gradient(90deg,#734a91 0%,#d96083 100%);
+}
