@@ -53,18 +53,21 @@ Muestra el cambio de tema si está implementado.
 ![Modo oscuro](screenshots/darkmode01.png)
 
 ### 8. Vista móvil / responsive
-Captura cómo se ve en dispositivos móviles.
+Capturas de cómo se ve en dispositivos móviles:
+
 ![Vista móvil](screenshots/mobile00.png)
 ![Vista móvil](screenshots/mobile01.png)
 ![Vista móvil](screenshots/mobile02.png)
 
 ### 9. Exportación a PDF/Excel/CSV
-Muestra el resultado de una exportación.
+Muestra el resultado de una exportación:
+
 ![Exportación](screenshots/export00.png)
 ![Exportación](screenshots/export01.png)
 
 ### 10. Cualquier sección especial o funcionalidad destacada
-Ejemplo: tutorial interactivo, perfil de usuario, etc.
+Ejemplo: tutorial interactivo, perfil de usuario, etc.:
+
 ![Funcionalidad especial](screenshots/extra00.png)
 ![Funcionalidad especial](screenshots/extra01.png)
 ![Funcionalidad especial](screenshots/extra02.png)
