@@ -1,0 +1,259 @@
+.dog1 {
+  left: 10vw;
+  top: 80vh;
+  width: 120px;
+  /* grande */
+  animation: floatDog1 20s infinite alternate-reverse;
+}
+
+.dog2 {
+  left: 70vw;
+  top: 20vh;
+  width: 60px;
+  /* mediano */
+  animation: floatDog2 16s infinite alternate;
+}
+
+.dog3 {
+  left: 50vw;
+  top: 90vh;
+  width: 90px;
+  /* grande */
+  animation: floatDog3 18s infinite alternate-reverse;
+}
+
+.dog4 {
+  left: 5vw;
+  top: 60vh;
+  width: 150px;
+  /* muy grande */
+  animation: floatDog4 22s infinite alternate-reverse ease-in-out;
+}
+
+.dog5 {
+  left: 80vw;
+  top: 10vh;
+  width: 40px;
+  /* pequeño */
+  animation: floatDog5 17s infinite alternate ease-in-out;
+}
+
+.hummingbird1 {
+  left: 30vw;
+  top: 10vh;
+  width: 80px;
+  /* grande */
+  animation: floatBird1 15s infinite alternate;
+}
+
+.hummingbird2 {
+  left: 60vw;
+  top: 40vh;
+  width: 40px;
+  /* pequeño */
+  animation: floatBird2 12s infinite alternate-reverse;
+}
+
+.hummingbird3 {
+  left: 10vw;
+  top: 50vh;
+  width: 60px;
+  /* mediano */
+  animation: floatBird3 14s infinite alternate;
+}
+
+.hummingbird4 {
+  left: 60vw;
+  top: 70vh;
+  width: 100px;
+  /* grande */
+  animation: floatBird4 19s infinite alternate-reverse ease-in-out;
+}
+
+.hummingbird5 {
+  left: 20vw;
+  top: 20vh;
+  width: 32px;
+  /* pequeño */
+  animation: floatBird5 15s infinite alternate ease-in-out;
+}
+
+@keyframes floatDog1 {
+  0% {
+    transform: translateY(0) scale(1) translateX(0);
+  }
+
+  30% {
+    transform: translateY(-100px) scale(1.1) translateX(30vw);
+  }
+
+  60% {
+    transform: translateY(-200px) scale(1.05) translateX(60vw);
+  }
+
+  100% {
+    transform: translateY(-300px) scale(1.08) translateX(0);
+  }
+}
+
+@keyframes floatDog3 {
+  0% {
+    transform: translateY(0) scale(1) translateX(0);
+  }
+
+  40% {
+    transform: translateY(-120px) scale(1.1) translateX(-40vw);
+  }
+
+  80% {
+    transform: translateY(-220px) scale(1.05) translateX(-60vw);
+  }
+
+  100% {
+    transform: translateY(-320px) scale(1.08) translateX(0);
+  }
+}
+
+@keyframes floatDog4 {
+  0% {
+    transform: translateY(0) scale(1) translateX(0);
+  }
+
+  25% {
+    transform: translateY(-150px) scale(1.12) translateX(40vw);
+  }
+
+  75% {
+    transform: translateY(-300px) scale(1.15) translateX(80vw);
+  }
+
+  100% {
+    transform: translateY(-400px) scale(1.1) translateX(0);
+  }
+}
+
+@keyframes floatBird1 {
+  0% {
+    transform: translateY(0) scale(1) translateX(0);
+  }
+
+  30% {
+    transform: translateY(-80px) scale(1.1) translateX(-30vw);
+  }
+
+  60% {
+    transform: translateY(-160px) scale(1.05) translateX(-60vw);
+  }
+
+  100% {
+    transform: translateY(-220px) scale(1.08) translateX(0);
+  }
+}
+
+@keyframes floatBird4 {
+  0% {
+    transform: translateY(0) scale(1) translateX(0);
+  }
+
+  25% {
+    transform: translateY(-120px) scale(1.12) translateX(30vw);
+  }
+
+  75% {
+    transform: translateY(-200px) scale(1.15) translateX(60vw);
+  }
+
+  100% {
+    transform: translateY(-300px) scale(1.1) translateX(0);
+  }
+}
+
+@keyframes floatDog3 {
+  0% {
+    transform: translateY(0) scale(1) translateX(0);
+  }
+
+  50% {
+    transform: translateY(-60px) scale(1.1) translateX(40vw);
+  }
+
+  100% {
+    transform: translateY(-120px) scale(1.05) translateX(0);
+  }
+}
+
+@keyframes floatBird3 {
+  0% {
+    transform: translateY(0) scale(1) translateX(0);
+  }
+
+  50% {
+    transform: translateY(-40px) scale(1.1) translateX(30vw);
+  }
+
+  100% {
+    transform: translateY(-80px) scale(1.05) translateX(0);
+  }
+}
+
+/* Fondo animado con SVGs de perritos y colibríes flotando */
+
+.animated-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: transparent;
+}
+
+.animated-bg svg {
+  position: absolute;
+  will-change: transform;
+  opacity: 0.8;
+  animation-timing-function: ease-in-out;
+  animation-duration: calc(var(--anim-scale, 1) * 12s);
+  filter: drop-shadow(0 8px 22px rgba(115, 74, 145, 0.14));
+}
+
+/* Paleta suave para mantener la coherencia visual */
+.dog1 ellipse[fill="#e0b0ff"],
+.hummingbird1 ellipse[fill="#e0b0ff"],
+.hummingbird2 ellipse[fill="#e0b0ff"] {
+  opacity: .22;
+}
+
+.dog1 circle[fill="#a87bc7"],
+.dog2 circle[fill="#a87bc7"],
+.hummingbird1 ellipse[fill="#a87bc7"],
+.hummingbird2 ellipse[fill="#a87bc7"] {
+  fill: #a87bc7;
+}
+
+.dog3 circle[fill="#a87bc7"],
+.hummingbird3 ellipse[fill="#a87bc7"] {
+  fill: #a87bc7;
+}
+
+/* Ajustes generales de tamaño/posición para una presencia más sutil */
+.dog1 {
+  width: 90px;
+}
+
+.dog2 {
+  width: 56px;
+}
+
+.dog3 {
+  width: 72px;
+}
+
+.hummingbird1 {
+  width: 54px;
+}
+
+.hummingbird2 {
+  width: 46px;
+}

@@ -1,0 +1,10 @@
+.hummingbird-svg {
+	position: fixed;
+	z-index: 1000;
+	pointer-events: none;
+	left: 0;
+	top: 0;
+	width: 64px;
+	height: 64px;
+	transition: transform 0.2s cubic-bezier(.4,0,.2,1);
+}

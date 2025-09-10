@@ -1,0 +1,121 @@
+.dark-mode .cs-root {
+	background: linear-gradient(120deg, #2d1846 0%, #734a91 60%, #a259b6 100%);
+}
+.dark-mode .cs-paper {
+	background: rgba(60, 30, 90, 0.7);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	border: 1.5px solid rgba(162,89,182,0.18);
+}
+.cs-root {
+	padding: 2.5rem 1.5rem;
+	background: #fff;
+	border-radius: 1.2rem;
+	box-shadow: 0 8px 32px rgba(114,74,145,0.18);
+}
+.cs-stack {
+	gap: 2.5rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.cs-paper {
+	padding: 1.5rem 1rem;
+	min-width: 260px;
+	max-width: 340px;
+	border-radius: 1rem;
+	background: #fff;
+	box-shadow: 0 8px 32px rgba(162,89,182,0.18);
+	margin-bottom: 1.5rem;
+	border: 1.5px solid rgba(162,89,182,0.08);
+}
+.cs-title {
+	font-weight: 700;
+	color: #734a91;
+	margin-bottom: 1rem;
+}
+.cs-btn-select {
+	margin-bottom: 1rem;
+	font-weight: 600;
+	color: #734a91 !important;
+	border-radius: 8px !important;
+}
+.cs-progress {
+	margin-bottom: 1rem;
+}
+.cs-file-box {
+	margin-top: 1rem;
+	background: #f7f7fa;
+	border-radius: 8px;
+	padding: 0.7rem 1rem;
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+}
+.cs-file-name {
+	font-weight: 500;
+	color: #734a91;
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.cs-btn-remove {
+	margin-left: 0.5rem;
+}
+.cs-file-actions {
+	display: flex;
+	gap: 0.7rem;
+}
+.cs-btn-preview {
+	color: #734a91 !important;
+	border-radius: 8px !important;
+}
+.cs-btn-open {
+	background: linear-gradient(90deg,#734a91 0%,#d96083 100%) !important;
+	color: #fff !important;
+	border-radius: 8px !important;
+}
+.cs-btn-view {
+	background: linear-gradient(90deg,#38f9d7 0%,#43e97b 100%) !important;
+	color: #fff !important;
+	border-radius: 8px !important;
+}
+.cs-progress-removing {
+	margin-top: 0.5rem;
+}
+.cs-saved {
+	color: #43e97b !important;
+	margin-left: 0.5rem;
+}
+.cs-preview-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(114,74,145,0.12);
+	z-index: 1200;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.cs-preview-box {
+	background: #fff;
+	border-radius: 1rem;
+	padding: 2rem 1.5rem;
+	box-shadow: 0 8px 32px rgba(114,74,145,0.12);
+	max-width: 600px;
+	width: 100%;
+}
+.cs-btn-close {
+	margin-bottom: 1rem;
+}
+.cs-preview-title {
+	color: #734a91;
+	font-weight: 700;
+	margin-bottom: 1rem;
+}
+.cs-preview-frame {
+	border: none;
+	border-radius: 8px;
+	box-shadow: 0 2px 12px rgba(114,74,145,0.08);
+}

@@ -1,0 +1,13 @@
+.cd-title {
+	font-weight: 700;
+	color: #734a91;
+	font-size: 1.2rem;
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+}
+.cd-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
+	padding-bottom: 1rem;
+}

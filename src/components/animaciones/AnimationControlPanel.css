@@ -1,0 +1,23 @@
+.acp-panel {
+	position: fixed;
+	right: 16px;
+	bottom: 16px;
+	z-index: 1100;
+	padding: 1.5rem 1.2rem;
+	min-width: 280px;
+	background: #fff;
+	border-radius: 1.2rem;
+	box-shadow: 0 4px 24px rgba(114,74,145,0.10);
+}
+.acp-title {
+	margin-bottom: 1rem;
+	font-weight: 700;
+	color: #734a91;
+	font-size: 1.1rem;
+}
+.acp-label {
+	color: #734a91;
+	font-size: 0.95rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.2rem;
+}

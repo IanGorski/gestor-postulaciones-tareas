@@ -1,0 +1,1 @@
+import './AnimatedAlert.css';
