@@ -1,4 +1,4 @@
-# Gestor de Postulaciones y Tareas
+# Gestor de Postulaciones y Tareas (EN DESARROLLO)
 
 **Autor:** Ian Gorski
 
