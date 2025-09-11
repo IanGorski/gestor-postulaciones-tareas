@@ -2,13 +2,50 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100vw;
+	width: 100%; 
 	height: 100vh;
+	height: 100dvh; 
+	min-height: var(--app-vh, 100vh);
 	display: flex;
-	align-items: center;
+	align-items: stretch;
 	justify-content: center;
 	background: transparent;
 	z-index: 1000;
+	overflow: hidden;
+	overscroll-behavior: contain;
+}
+
+.register-form-right { overflow-y: auto; }
+@media (min-width: 1024px) {
+	.register-form-right {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.register-form-wrapper {
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 24px rgba(80, 0, 120, 0.12);
+	padding: 2rem 2.5rem;
+	max-width: 400px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	box-sizing: border-box;
+}
+
+/* Paneles a 50/50 en desktop */
+.register-form-left,
+.register-form-right {
+	flex: 1 1 50%;
+}
+
+/* Fondo del panel 3D (lado izquierdo) */
+.register-form-left {
+	background: radial-gradient(circle at 40% 40%, #e040fb 0%, #a259b6 100%);
 }
 
 .register-form-container form {
@@ -80,3 +117,55 @@
 		font-size: 1.5rem;
 	}
 }
+
+/* Responsive móvil reducido: apilar sólo <640px */
+@media (max-width: 639.98px) {
+	html, body, #root { width: 100vw !important; min-width: 100vw !important; max-width: 100vw !important; overflow-x: hidden !important; }
+	.register-form-container { position: relative; height: var(--app-vh, 100vh); min-height: var(--app-vh, 100vh); display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; overflow: hidden; width: 100vw; left:0; right:0; }
+	.register-form-left { flex: 0 0 45%; display: flex; align-items: center; justify-content: center; position: relative; width:100vw !important; max-width:100vw !important; }
+	.register-form-right { flex: 1 1 auto; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding:0.75rem 1rem calc(env(safe-area-inset-bottom) + 1rem); background:#fff; overflow-y:auto; overflow-x:hidden; width:100vw !important; max-width:100vw !important; }
+	.register-form-wrapper { width:100vw !important; max-width:100vw !important; margin:0; padding:1.05rem 1rem 1.4rem; box-shadow:none !important; border-radius:0 !important; background:#fff; }
+	.register-form-input { font-size:0.95rem; padding:0.7rem 0.9rem; }
+	.register-form-button { padding:0.8rem 1.25rem; font-size:1rem; width:100%; }
+}
+
+/* Layout horizontal tipo desktop entre 640px y 1023px */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+	.register-form-container { flex-direction: row; height: var(--app-vh, 100vh); min-height: var(--app-vh, 100vh); }
+	.register-form-left, .register-form-right { flex: 1 1 50%; width: 50%; height: 100%; }
+	.register-form-left { display: flex; align-items: center; justify-content: center; }
+	.register-form-right { display: flex; align-items: center; justify-content: center; overflow-y: auto; padding: 1.25rem 1rem; }
+	.register-form-wrapper { margin: 0; max-width: 440px; padding: 1.75rem 1.5rem 2rem; }
+	.register-form-title { font-size: 1.85rem; }
+}
+
+/* Micro breakpoint ultra pequeño (<=340px) */
+@media (max-width: 340px) {
+	.register-form-title { font-size: 1.35rem; margin-bottom: 0.75rem; }
+	.register-form-wrapper { padding: 0.85rem 0.7rem 1.05rem; gap: 0.9rem; }
+	.register-form-input { font-size: 0.85rem; padding: 0.6rem 0.75rem; }
+	.register-form-button { font-size: 0.9rem; padding: 0.65rem 1rem; }
+	.register-form-link { font-size: 0.8rem; }
+}
+
+@media (max-width: 1199.98px) and (min-width: 1024px) {
+	@media (max-height: 820px) {
+		.register-form-container {
+			position: relative;
+			height: auto;
+			min-height: 100vh;
+			flex-direction: column !important;
+			overflow: visible;
+		}
+		.register-form-left { min-height: clamp(300px, 45vh, 560px); max-height: 60vh; }
+		.register-form-right { padding: 1rem 0.75rem 2rem; }
+	}
+}
+
+@media (max-height: 560px) and (max-width: 900px) {
+	.register-form-left { min-height: 300px; max-height: 50vh; }
+	.register-form-wrapper { padding: 0.9rem 0.85rem 1.2rem; gap: 1.1rem; }
+}
+
+/* Safe area padding inferior */
+.register-form-wrapper { padding-bottom: calc(env(safe-area-inset-bottom) + 1.4rem); }

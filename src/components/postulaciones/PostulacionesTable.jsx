@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -22,6 +23,8 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import MuiAlert from '@mui/material/Alert';
 
 function PostulacionesTable(props) {
+  // Detect mobile (from 300px to 900px width)
+  const isMobile = useMediaQuery('(min-width:300px) and (max-width:900px)');
   const {
     columns = [],
     rows = [],
@@ -92,6 +95,8 @@ function PostulacionesTable(props) {
   } = props;
 
   const editInputRefs = useRef({});
+  const [expandedCards, setExpandedCards] = useState({}); // realIdx => bool
+  const toggleExpand = (idx) => setExpandedCards(prev => ({ ...prev, [idx]: !prev[idx] }));
 
   // Exportar PDF con jsPDF y autoTable
   const handleExportPDF = async () => {
@@ -139,125 +144,97 @@ function PostulacionesTable(props) {
     doc.save(`Postulaciones_${sectionName || 'datos'}_con_curriculums.pdf`);
   };
 
+  // Renderizado condicional: tarjetas en móvil, tabla en desktop
   return (
     <Box>
-      {/* Barra de acciones */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2, justifyContent: 'center' }}>
+      {/* Barra de acciones (responsive desde 300px) */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: { xs: 'stretch', sm: 'center' },
+          gap: 1,
+          mb: 2,
+          justifyContent: { xs: 'flex-start', sm: 'center' },
+        }}
+      >
         <TextField
           variant="outlined"
           value={search}
           onChange={onSearchChange}
-          placeholder="Buscar en la sección"
-          sx={{ width: 350, background: '#fff', borderRadius: 1 }}
-          aria-label="Buscar en la sección"
+          placeholder="Buscar por sección"
+          size="small"
+          sx={{
+            width: { xs: '100%', sm: 300, md: 350 },
+            background: '#fff',
+            borderRadius: 1,
+          }}
+          aria-label="Buscar por sección"
         />
-        <Button
-          color="success"
-          startIcon={<DownloadIcon />}
-          onClick={handleExportCSV}
+  {/* Contenedor de botones: wrap en mobile */}
+        <Box
           sx={{
-            fontWeight: 700,
-            px: 3,
-            py: 1.2,
-            borderRadius: 2,
-            boxShadow: '0 2px 8px rgba(80,200,120,0.18)',
-            background: 'linear-gradient(90deg,#43e97b 0%,#38f9d7 100%)',
-            color: '#fff',
-            textTransform: 'uppercase',
-            letterSpacing: 0.5,
-            '&:hover': {
-              background: 'linear-gradient(90deg,#38f9d7 0%,#43e97b 100%)',
-              color: '#fff',
-            },
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 1,
+            width: { xs: '100%', sm: 'auto' },
           }}
         >
-          Exportar CSV
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          startIcon={<PictureAsPdfIcon />}
-          onClick={handleExportPDF}
-          sx={{
-            fontWeight: 700,
-            px: 3,
-            py: 1.2,
-            borderRadius: 2,
-            boxShadow: '0 2px 8px rgba(220,38,38,0.18)',
-            background: 'linear-gradient(90deg,#d96083 0%,#734a91 100%)',
-            color: '#fff',
-            textTransform: 'uppercase',
-            letterSpacing: 0.5,
-            ml: 1,
-            '&:hover': {
-              background: 'linear-gradient(90deg,#734a91 0%,#d96083 100%)',
-              color: '#fff',
-            },
-          }}
-        >
-          Exportar PDF
-        </Button>
-        <Button
-          variant="contained"
-          color="warning"
-          startIcon={<TableChartIcon />}
-          onClick={handleExportExcel}
-          sx={{
-            fontWeight: 700,
-            px: 3,
-            py: 1.2,
-            borderRadius: 2,
-            boxShadow: '0 2px 8px rgba(255,200,80,0.18)',
-            background: 'linear-gradient(90deg,#ffd86f 0%,#f5f7fa 100%)',
-            color: '#734a91',
-            textTransform: 'uppercase',
-            letterSpacing: 0.5,
-            ml: 1,
-            '&:hover': {
-              background: 'linear-gradient(90deg,#f5f7fa 0%,#ffd86f 100%)',
-              color: '#734a91',
-            },
-          }}
-        >
-          Exportar Excel
-        </Button>
-        <label htmlFor="import-csv-input" style={{ display: 'inline-block' }}>
-          <input
-            id="import-csv-input"
-            type="file"
-            accept=".csv"
-            style={{ display: 'none' }}
-            onChange={handleImportCSV}
-          />
+          <Button
+            color="success"
+            size="small"
+            startIcon={<DownloadIcon />}
+            onClick={handleExportCSV}
+            sx={{ flex: { xs: '1 1 calc(50% - 8px)', sm: '0 0 auto' } }}
+          >
+            Exportar CSV
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            size="small"
+            startIcon={<PictureAsPdfIcon />}
+            onClick={handleExportPDF}
+            sx={{ flex: { xs: '1 1 calc(50% - 8px)', sm: '0 0 auto' } }}
+          >
+            Exportar PDF
+          </Button>
+          <Button
+            variant="contained"
+            color="warning"
+            size="small"
+            startIcon={<TableChartIcon />}
+            onClick={handleExportExcel}
+            sx={{ flex: { xs: '1 1 calc(50% - 8px)', sm: '0 0 auto' } }}
+          >
+            Exportar Excel
+          </Button>
           <Button
             variant="contained"
             color="info"
+            size="small"
+            component="label"
             startIcon={<UploadFileIcon />}
-            component="span"
-            sx={{
-              fontWeight: 700,
-              px: 3,
-              py: 1.2,
-              borderRadius: 2,
-              boxShadow: '0 2px 8px rgba(80,180,255,0.18)',
-              background: 'linear-gradient(90deg,#38f9d7 0%,#43e97b 100%)',
-              color: '#fff',
-              textTransform: 'uppercase',
-              letterSpacing: 0.5,
-              ml: 1,
-              '&:hover': {
-                background: 'linear-gradient(90deg,#43e97b 0%,#38f9d7 100%)',
-                color: '#fff',
-              },
-            }}
+            sx={{ flex: { xs: '1 1 100%', sm: '0 0 auto' } }}
           >
             Importar CSV
+            <input id="import-csv-input" type="file" accept=".csv" hidden onChange={handleImportCSV} />
           </Button>
-        </label>
+        </Box>
       </Box>
 
-  {/* Barra de estado: conteo y errores */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1, px: 0.5, gap: 1 }}>
+      {/* Barra de estado */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          justifyContent: 'space-between',
+          mb: 1,
+          px: 0.5,
+          gap: 1,
+        }}
+      >
         <Typography variant="body2" color="text.secondary">
           {loading
             ? 'Cargando…'
@@ -270,112 +247,268 @@ function PostulacionesTable(props) {
         )}
       </Box>
 
-      <TableContainer component={Paper} sx={{ boxShadow: 2, maxHeight: { xs: 420, md: 560 }, overflowY: 'auto' }}>
-        <Table stickyHeader size="small">
-          <TableHead>
-            <TableRow>
-              {columns.map((col) => (
-                <TableCell key={col} sx={{ fontWeight: 600, color: '#a259b6', borderBottom: '2px solid #a259b6' }}>
-                  {col}
-                </TableCell>
-              ))}
-              <TableCell align="right" sx={{ borderBottom: '2px solid #a259b6', minWidth: 160 }}>
-                <Button
-                  variant="contained"
-                  sx={{ background: '#a259b6', fontWeight: 600, borderRadius: 2, px: 3 }}
-                  onClick={onAddRow}
-                >
-                  AGREGAR
-                </Button>
-              </TableCell>
-            </TableRow>
-            {/* Fila de entrada para una NUEVA fila */}
-            <TableRow>
-              {columns.map((_, idx) => (
-                <TableCell key={`new-${idx}`}>
+      {/* Renderizado tarjetas en móvil */}
+      {isMobile ? (
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          width: '100%',
+          minWidth: 0,
+          maxWidth: '100%',
+          px: 0,
+          mx: 0,
+          overflowX: 'hidden'
+        }}>
+          {/* Tarjeta para NUEVO registro en móvil */}
+          {Array.isArray(columns) && columns.length > 0 && (
+      <Paper
+        sx={{
+  p: { xs: 1, sm: 2 },
+    mb: 2,
+    boxShadow: 2,
+    borderLeft: '4px solid #734a91',
+    borderRadius: 2,
+  width: '100%',
+  minWidth: 0,
+  maxWidth: '100%',
+  boxSizing: 'border-box',
+        }}
+              role="form"
+              aria-label="Nuevo registro"
+            >
+              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1, color: '#3c3c3c' }}>
+                Nuevo registro
+              </Typography>
+              {columns.map((col, idx) => (
+                <Box key={`new-mobile-${idx}`} sx={{ mb: 1.25 }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                    {col}
+                  </Typography>
                   <TextField
                     value={newRow[idx] || ''}
                     onChange={(e) => onInputChange(e, idx, null)}
                     size="small"
-                    variant="standard"
+                    variant="outlined"
                     fullWidth
                     error={Boolean(newRowErrors[idx])}
                     helperText={newRowErrors[idx] || ''}
-                    aria-label={`Nuevo ${columns[idx]}`}
+                    aria-label={`Nuevo ${col}`}
                   />
-                </TableCell>
+                </Box>
               ))}
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows?.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={columns.length + 1} align="center" sx={{ color: 'text.secondary' }}>
-                  Sin datos en esta sección.
-                </TableCell>
-              </TableRow>
-            ) : (
-              (Array.isArray(paginatedRows) && paginatedRows.length > 0 ? paginatedRows : rows).map((row, i) => {
-                const realIdx = paginatedRealIndices && paginatedRealIndices[i] !== undefined ? paginatedRealIndices[i] : (start + i);
-                const editingRow = isEditingRow(realIdx);
-                return (
-                  <TableRow key={realIdx} hover>
-                    {columns.map((_, colIdx) => (
-                      <TableCell key={colIdx}>
+              <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+                <Button onClick={onAddRow} variant="contained" size="small" sx={{ flex: 1, background: '#a259b6', fontWeight: 600 }}>AGREGAR</Button>
+              </Box>
+            </Paper>
+          )}
+          {rows?.length === 0 ? (
+            <Paper sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>
+              Sin datos en esta sección.
+            </Paper>
+          ) : (
+            (Array.isArray(paginatedRows) && paginatedRows.length > 0 ? paginatedRows : rows).map((row, i) => {
+              const realIdx = paginatedRealIndices && paginatedRealIndices[i] !== undefined ? paginatedRealIndices[i] : (start + i);
+              const editingRow = isEditingRow(realIdx);
+              return (
+  <Paper
+      key={realIdx}
+      sx={{
+    p: { xs: 1, sm: 2 },
+        mb: 2,
+        boxShadow: 2,
+        borderLeft: '4px solid #a259b6',
+        borderRadius: 2,
+        overflow: 'hidden',
+    width: '100%',
+    minWidth: 0,
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+      }}
+                  role="article"
+                  aria-label={`Registro ${realIdx + 1}`}
+                >
+                  {/* Encabezado de la tarjeta con título (primer campo) */}
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3c3c3c' }}>
+                      {row?.[0] || 'Registro'}
+                    </Typography>
+                    {!editingRow && (
+                      <Stack direction="row" spacing={1}>
+                        <Button onClick={() => onEditRow(realIdx)} variant="text" size="small">Editar</Button>
+                        <Button onClick={() => onDelete(realIdx)} variant="text" color="error" size="small">Eliminar</Button>
+                      </Stack>
+                    )}
+                  </Box>
+
+                  {/* Contenido de campos (priorizar Nombre ONG / Puesto / Modalidad) */}
+                  {(() => {
+                    const lower = (s) => (s || '').toString().toLowerCase();
+                    const preferredGroups = [
+                      ['Nombre ONG', 'Nombre Fundación', 'Nombre ong', 'Nombre'],
+                      ['Puesto'],
+                      ['Modalidad']
+                    ];
+                    const headerLower = columns.map(c => lower(c));
+                    const preferredIdxs = [];
+                    preferredGroups.forEach(group => {
+                      const found = headerLower.findIndex(h => group.some(g => lower(g) && h.includes(lower(g))));
+                      if (found >= 0 && !preferredIdxs.includes(found)) preferredIdxs.push(found);
+                    });
+                    const allIdxs = columns.map((_, i) => i);
+                    const remaining = allIdxs.filter(i => !preferredIdxs.includes(i));
+                    const displayIdxs = expandedCards[realIdx] ? allIdxs : [...preferredIdxs, ...remaining].slice(0, 4);
+
+                    return displayIdxs.map((idx) => (
+                      <Box key={idx} sx={{ mb: 1.25 }}>
+                        <Typography variant="caption" sx={{ color: 'text.secondary', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                          {columns[idx]}
+                        </Typography>
                         {editingRow ? (
                           <TextField
-                            inputRef={el => editInputRefs.current[realIdx] = el}
-                            value={editRowData[colIdx] || ''}
-                            onChange={(e) => onInputChange(e, colIdx, realIdx)}
+                            value={editRowData[idx] || ''}
+                            onChange={(e) => onInputChange(e, idx, realIdx)}
                             size="small"
-                            variant="standard"
+                            variant="outlined"
                             fullWidth
-                            error={Boolean(editRowErrors[colIdx])}
-                            helperText={editRowErrors[colIdx] || ''}
-                            aria-label={`Editar ${columns[colIdx]}`}
+                            error={Boolean(editRowErrors[idx])}
+                            helperText={editRowErrors[idx] || ''}
+                            aria-label={`Editar ${columns[idx]}`}
                           />
                         ) : (
-                          <span>{row[colIdx] || ''}</span>
+                          <Typography variant="body2" sx={{ mt: 0.25 }}>
+                            {row[idx] || ''}
+                          </Typography>
                         )}
-                      </TableCell>
-                    ))}
-                    <TableCell align="center">
-                      {editingRow ? (
-                        <Stack direction="row" spacing={1} justifyContent="center">
-                          <Button onClick={() => onSaveEdit(realIdx)} variant="contained" color="success" size="small">Guardar</Button>
-                          <Button onClick={onCancelEdit} variant="outlined" color="inherit" size="small">Cancelar</Button>
-                        </Stack>
-                      ) : (
-                        <Stack direction="row" spacing={1} justifyContent="center">
-                          <Button onClick={() => onEditRow(realIdx)} variant="outlined" size="small">Editar</Button>
-                          <Button onClick={() => onDelete(realIdx)} variant="outlined" color="error" size="small">Eliminar</Button>
-                        </Stack>
-                      )}
+                      </Box>
+                    ));
+                  })()}
+
+                  {/* Toggle ver más/menos (si hay más de 4 columnas) */}
+                  {!editingRow && columns.length > 4 && (
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 0.5 }}>
+                      <Button size="small" variant="text" onClick={() => toggleExpand(realIdx)}>
+                        {expandedCards[realIdx] ? 'Ver menos' : 'Ver más'}
+                      </Button>
+                    </Box>
+                  )}
+
+                  {/* Acciones en modo edición */}
+                  {editingRow && (
+                    <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+                      <Button onClick={() => onSaveEdit(realIdx)} variant="contained" color="success" size="small" sx={{ flex: 1 }}>Guardar</Button>
+                      <Button onClick={onCancelEdit} variant="outlined" color="inherit" size="small" sx={{ flex: 1 }}>Cancelar</Button>
+                    </Box>
+                  )}
+                </Paper>
+              );
+            })
+          )}
+        </Box>
+      ) : (
+        // Renderizado tabla en desktop
+        <>
+          <TableContainer component={Paper} sx={{ boxShadow: 2, maxHeight: { xs: 420, md: 560 }, overflowY: 'auto' }}>
+            <Table stickyHeader size="small">
+              <TableHead>
+                <TableRow>
+                  {columns.map((col) => (
+                    <TableCell key={col} sx={{ fontWeight: 600, color: '#a259b6', borderBottom: '2px solid #a259b6' }}>
+                      {col}
+                    </TableCell>
+                  ))}
+                  <TableCell align="right" sx={{ borderBottom: '2px solid #a259b6', minWidth: 160 }}>
+                    <Button variant="contained" sx={{ background: '#a259b6', fontWeight: 600, borderRadius: 2, px: 3 }} onClick={onAddRow}>AGREGAR</Button>
+                  </TableCell>
+                </TableRow>
+                {/* Fila de entrada para una NUEVA fila */}
+                <TableRow>
+                  {columns.map((_, idx) => (
+                    <TableCell key={`new-${idx}`}>
+                      <TextField
+                        value={newRow[idx] || ''}
+                        onChange={(e) => onInputChange(e, idx, null)}
+                        size="small"
+                        variant="standard"
+                        fullWidth
+                        error={Boolean(newRowErrors[idx])}
+                        helperText={newRowErrors[idx] || ''}
+                        aria-label={`Nuevo ${columns[idx]}`}
+                      />
+                    </TableCell>
+                  ))}
+                  <TableCell />
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows?.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={columns.length + 1} align="center" sx={{ color: 'text.secondary' }}>
+                      Sin datos en esta sección.
                     </TableCell>
                   </TableRow>
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <Divider sx={{ my: 1.5 }} />
-      <TablePagination
-        component="div"
-        count={rows?.length || 0}
-        page={currentPage}
-        onPageChange={(_, p) => setCurrentPage(p)}
-        rowsPerPage={currentRowsPerPage}
-        onRowsPerPageChange={(e) => {
-          setCurrentRowsPerPage(parseInt(e.target.value, 10));
-          setCurrentPage(0);
-        }}
-        rowsPerPageOptions={[5, 10, 25, 50]}
-        labelRowsPerPage="Filas por página"
-        labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
-      />
+                ) : (
+                  (Array.isArray(paginatedRows) && paginatedRows.length > 0 ? paginatedRows : rows).map((row, i) => {
+                    const realIdx = paginatedRealIndices && paginatedRealIndices[i] !== undefined ? paginatedRealIndices[i] : (start + i);
+                    const editingRow = isEditingRow(realIdx);
+                    return (
+                      <TableRow key={realIdx} hover>
+                        {columns.map((_, colIdx) => (
+                          <TableCell key={colIdx}>
+                            {editingRow ? (
+                              <TextField
+                                inputRef={el => editInputRefs.current[realIdx] = el}
+                                value={editRowData[colIdx] || ''}
+                                onChange={(e) => onInputChange(e, colIdx, realIdx)}
+                                size="small"
+                                variant="standard"
+                                fullWidth
+                                error={Boolean(editRowErrors[colIdx])}
+                                helperText={editRowErrors[colIdx] || ''}
+                                aria-label={`Editar ${columns[colIdx]}`}
+                              />
+                            ) : (
+                              <span>{row[colIdx] || ''}</span>
+                            )}
+                          </TableCell>
+                        ))}
+                        <TableCell align="center">
+                          {editingRow ? (
+                            <Stack direction="row" spacing={1} justifyContent="center">
+                              <Button onClick={() => onSaveEdit(realIdx)} variant="contained" color="success" size="small">Guardar</Button>
+                              <Button onClick={onCancelEdit} variant="outlined" color="inherit" size="small">Cancelar</Button>
+                            </Stack>
+                          ) : (
+                            <Stack direction="row" spacing={1} justifyContent="center">
+                              <Button onClick={() => onEditRow(realIdx)} variant="outlined" size="small">Editar</Button>
+                              <Button onClick={() => onDelete(realIdx)} variant="outlined" color="error" size="small">Eliminar</Button>
+                            </Stack>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Divider sx={{ my: 1.5 }} />
+          <TablePagination
+            component="div"
+            count={rows?.length || 0}
+            page={currentPage}
+            onPageChange={(_, p) => setCurrentPage(p)}
+            rowsPerPage={currentRowsPerPage}
+            onRowsPerPageChange={(e) => {
+              setCurrentRowsPerPage(parseInt(e.target.value, 10));
+              setCurrentPage(0);
+            }}
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            labelRowsPerPage="Filas por página"
+            labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
+          />
+        </>
+      )}
     </Box>
   );
 }

@@ -59,6 +59,7 @@ Capturas de cómo se ve en dispositivos móviles:
 ![Vista móvil](screenshots/mobile01.png)
 ![Vista móvil](screenshots/mobile02.png)
 
+
 ### 9. Exportación a PDF/Excel/CSV
 Muestra el resultado de una exportación:
 
@@ -143,6 +144,7 @@ Gestor tareas/
 ├── index.html
 ├── vite.config.js
 ├── README.md
+
     ---
 
 	## 📄 Licencia
@@ -269,11 +271,89 @@ Aplicación para gestionar postulaciones y tareas, permitiendo organizar informa
 
 ## 🛠️ Notas técnicas
 
-- Tema MUI personalizado en `src/theme.js` (paleta morados/lilas, tipografía Poppins, sombras y bordes suaves).
-- Reglas responsive y safe-area en `src/styles/global.css`.
-- Confirmaciones: `src/components/ConfirmDialog.jsx`.
-- Componentes diferidos: `src/components/ParticlesBackground.jsx`, `AnimatedBackground.jsx`, `InteractiveHummingbird.jsx`, `CurriculumSection.jsx`, `PostulacionesTable.jsx`.
 
+
+
+## 🧩 Esqueleto profesional de la autenticación animada
+
+### Estructura principal
+
+- `src/components/auth/LoginForm.jsx` — Formulario de login, animación y layout responsive.
+- `src/components/auth/RegisterForm.jsx` — Formulario de registro, animación y layout responsive.
+- `src/components/auth/AnimatedCube.jsx` — Cubo 3D animado, fallback estático si WebGL falla.
+- `src/components/auth/LoginForm.css` y `RegisterForm.css` — Media queries para todos los breakpoints (1025px a 300px), sin scroll horizontal, sin espacios vacíos, split proporcional animación/formulario.
+- `src/utils/viewportHeight.js` — Utilidad para altura dinámica y evitar saltos visuales en móviles.
+
+### Checklist Responsive & Visual
+
+- [✅] Sin scroll horizontal en ningún breakpoint (300px a 1025px).
+- [✅] Split 50/50 animación y formulario en desktop y mobile.
+- [✅] Sin espacios blancos ni contenido cortado en breakpoints críticos (640px, 480px, 300px).
+- [✅] Tipografías y paddings adaptados para <340px.
+- [✅] Fallback estático si WebGL no está disponible.
+- [✅] Safe-area y padding dinámico para dispositivos móviles.
+- [✅] Centrado vertical y horizontal en desktop.
+- [✅] Animación fluida y sin saltos visuales al abrir teclado móvil.
+- [✅] Accesibilidad básica (aria-labels, contraste, navegación teclado).
+
+### Detalles técnicos
+
+
+---
+
+## 📦 Estructura completa de componentes y estilos
+
+### Autenticación
+- `auth/LoginForm.jsx`, `auth/LoginForm.css`
+- `auth/RegisterForm.jsx`, `auth/RegisterForm.css`
+- `auth/AnimatedCube.jsx`
+- `auth/Animated3D.jsx`
+- `auth/ForgotPassword.jsx`
+
+### Animaciones y fondos
+- `animaciones/AnimatedBackground.jsx`, `AnimatedBackground.css`
+- `animaciones/AnimationControlPanel.jsx`, `AnimationControlPanel.css`
+- `animaciones/InteractiveHummingbird.jsx`, `InteractiveHummingbird.css`
+- `animaciones/ParticlesBackground.jsx`, `ParticlesBackground.css`
+
+### Currículums
+- `curriculums/CurriculumSection.jsx`, `CurriculumSection.css`
+
+### Perfiles
+- `perfiles/ProfileSelector.jsx`, `ProfileSelector.css`
+
+### Postulaciones
+- `postulaciones/PostulacionesTable.jsx`, `PostulacionesTable.css`
+
+### Compartidos
+- `shared/ConfirmDialog.jsx`, `ConfirmDialog.css`
+- `shared/AnimatedAlert.jsx`, `AnimatedAlert.css`
+
+### Splash
+- `SplashScreen.jsx`, `SplashScreen.css`
+- `Splash.jsx`, `Splash.css`
+
+---
+
+## 🛠️ Utilidades y helpers
+
+- `utils/viewportHeight.js` — Altura dinámica para evitar saltos visuales en móviles.
+- `utils/notify.js` — Notificaciones visuales.
+- `utils/validations.js` — Validaciones de formularios.
+
+---
+
+## 📋 Referencia rápida de breakpoints
+
+| Breakpoint | Layout | Detalles |
+|------------|--------|----------|
+| ≥1025px    | Split horizontal 50/50 | Centrado, animación y formulario lado a lado |
+| 900–1024px | Split horizontal | Full-bleed, sin max-width, sin sombras |
+| 640–899px  | Split horizontal | Full-bleed, sin espacios vacíos |
+| 480–639px  | Split vertical   | Apilado, animación arriba, formulario abajo |
+| 300–479px  | Split vertical   | Apilado, tipografía y paddings adaptados |
+
+---
 ---
 
 ## Notas

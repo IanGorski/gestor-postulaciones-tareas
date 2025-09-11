@@ -1,15 +1,59 @@
 
+/* Contenedor principal login */
 .login-form-container {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100vw;
+	width: 100%; /* evitar desbordes horizontales provocados por 100vw en móviles con scrollbar */
 	height: 100vh;
+	height: 100dvh; /* navegadores modernos */
+	min-height: var(--app-vh, 100vh); /* fallback dinámico para teclado móvil */
 	display: flex;
-	align-items: center;
+	align-items: stretch;
 	justify-content: center;
 	background: transparent;
 	z-index: 1000;
+	overflow: hidden;
+	overscroll-behavior: contain;
+}
+
+/* removed stray bracket */
+
+/* Asegurar que los paneles llenen vertical y permitan scroll interno si el formulario supera el alto disponible */
+.login-form-right {
+	overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+	.login-form-right {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.login-form-wrapper {
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 24px rgba(80, 0, 120, 0.12);
+	padding: 2rem 2.5rem;
+	max-width: 400px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	box-sizing: border-box;
+}
+
+/* Paneles a 50/50 en desktop */
+.login-form-left,
+.login-form-right {
+	flex: 1 1 50%;
+}
+
+/* Fondo del panel 3D en desktop; en mobile hereda del inline de la izquierda */
+.login-form-left {
+	background: radial-gradient(circle at 40% 40%, #e040fb 0%, #a259b6 100%);
 }
 
 .login-form-container form {
@@ -73,12 +117,60 @@
 }
 
 @media (max-width: 500px) {
-	.login-form-container {
-		padding: 1rem;
-		max-width: 95vw;
-	}
 	.login-form-title {
 		font-size: 1.5rem;
 	}
 }
 
+/* Responsive móvil reducido: sólo <640px apila (versión limpia) */
+@media (max-width: 639.98px) {
+	html, body, #root { width: 100vw !important; min-width: 100vw !important; max-width: 100vw !important; overflow-x: hidden !important; }
+	.login-form-container { position: relative; height: var(--app-vh, 100vh); min-height: var(--app-vh, 100vh); display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; overflow: hidden; width: 100vw; left:0; right:0; }
+	.login-form-left { flex: 0 0 45%; display: flex; align-items: center; justify-content: center; position: relative; width:100vw !important; max-width:100vw !important; }
+	.login-form-right { flex: 1 1 auto; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding:0.75rem 1rem calc(env(safe-area-inset-bottom) + 1rem); background:#fff; overflow-y:auto; overflow-x:hidden; width:100vw !important; max-width:100vw !important; }
+	.login-form-wrapper { width:100vw !important; max-width:100vw !important; margin:0; padding:1.05rem 1rem 1.4rem; box-shadow:none !important; border-radius:0 !important; }
+	.login-form-input { font-size:0.95rem; padding:0.7rem 0.9rem; }
+}
+/* Tablet horizontal y desktop comprimido: 900px - 1024px */
+@media (min-width: 900px) and (max-width: 1024px) {
+	.login-form-container { flex-direction: row; height: var(--app-vh, 100vh); min-height: var(--app-vh, 100vh); width: 100vw; }
+	.login-form-left, .login-form-right { flex: 1 1 50%; width: 50vw; height: 100vh; }
+	.login-form-left { display: flex; align-items: center; justify-content: center; }
+	.login-form-right { display: flex; align-items: center; justify-content: center; overflow-y: auto; padding: 2rem 2rem; }
+	.login-form-wrapper { margin: 0; max-width: 440px; padding: 2rem 2rem 2.2rem; box-shadow: 0 4px 24px rgba(80,0,120,0.10); border-radius: 16px; }
+	.login-form-title { font-size: 2rem; }
+	.login-form-input { font-size: 1rem; }
+}
+
+/* Tablet vertical y móviles grandes: 641px - 899px */
+@media (min-width: 641px) and (max-width: 899px) {
+	.login-form-container { flex-direction: row; height: var(--app-vh, 100vh); min-height: var(--app-vh, 100vh); width: 100vw; }
+	.login-form-left, .login-form-right { flex: 1 1 50%; width: 50vw; height: 100vh; }
+	.login-form-left { display: flex; align-items: center; justify-content: center; }
+	.login-form-right { display: flex; align-items: center; justify-content: center; overflow-y: auto; padding: 1.5rem 1rem; }
+	.login-form-wrapper { margin: 0; max-width: 400px; padding: 1.5rem 1rem 1.7rem; box-shadow: 0 4px 18px rgba(80,0,120,0.10); border-radius: 12px; }
+	.login-form-title { font-size: 1.7rem; }
+	.login-form-input { font-size: 0.95rem; }
+}
+
+/* Móviles medianos: 480px - 640px (full-bleed, sin espacios en blanco) */
+@media (min-width: 480px) and (max-width: 640px) {
+	html, body, #root { width: 100vw !important; min-width: 100vw !important; max-width: 100vw !important; overflow-x: hidden !important; }
+	.login-form-container { position: fixed; top: 0; left: 0; height: var(--app-vh, 100vh); min-height: var(--app-vh, 100vh); width: 100vw; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; overflow: hidden; }
+	.login-form-left { flex: 0 0 44%; width: 100vw !important; max-width: 100vw !important; min-height: 0; display: flex; align-items: center; justify-content: center; position: relative; }
+	.login-form-right { flex: 1 1 56%; width: 100vw !important; max-width: 100vw !important; min-height: 0; display: flex; align-items: flex-start; justify-content: center; padding: 0.75rem 1rem calc(env(safe-area-inset-bottom) + 1rem); background: #fff; overflow-y: auto; overflow-x: hidden; }
+	.login-form-wrapper { width: 100vw !important; max-width: 100vw !important; margin: 0; padding: 1rem 0.8rem 1.2rem; box-shadow: none !important; border-radius: 8px !important; }
+	.login-form-title { font-size: 1.35rem; }
+	.login-form-input { font-size: 0.92rem; }
+}
+
+/* Móviles pequeños: 300px - 480px (full-bleed, sin espacios en blanco) */
+@media (max-width: 480px) {
+	html, body, #root { width: 100vw !important; min-width: 100vw !important; max-width: 100vw !important; overflow-x: hidden !important; }
+	.login-form-container { position: fixed; top: 0; left: 0; height: var(--app-vh, 100vh); min-height: var(--app-vh, 100vh); width: 100vw; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; overflow: hidden; }
+	.login-form-left { flex: 0 0 42%; width: 100vw !important; max-width: 100vw !important; min-height: 0; display: flex; align-items: center; justify-content: center; position: relative; }
+	.login-form-right { flex: 1 1 58%; width: 100vw !important; max-width: 100vw !important; min-height: 0; display: flex; align-items: flex-start; justify-content: center; padding: 0.5rem 0.5rem calc(env(safe-area-inset-bottom) + 0.7rem); background: #fff; overflow-y: auto; overflow-x: hidden; }
+	.login-form-wrapper { width: 100vw !important; max-width: 100vw !important; margin: 0; padding: 0.7rem 0.5rem 1rem; box-shadow: none !important; border-radius: 4px !important; }
+	.login-form-title { font-size: 1.1rem; }
+	.login-form-input { font-size: 0.85rem; }
+}

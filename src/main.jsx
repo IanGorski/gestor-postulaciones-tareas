@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
@@ -8,10 +8,15 @@ import getTheme from './theme';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { ThemeModeProvider, useThemeMode } from './context/ThemeModeContext';
 import AppAuthWrapper from './AppAuthWrapper';
+import { initDynamicViewportHeight } from './utils/viewportHeight';
 
-function ThemeRoot() {
+export function ThemeRoot() {
   const { darkMode } = useThemeMode();
   const theme = getTheme(darkMode ? 'dark' : 'light');
+  useEffect(() => {
+    const cleanup = initDynamicViewportHeight();
+    return cleanup;
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
