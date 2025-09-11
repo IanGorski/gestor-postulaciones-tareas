@@ -279,5 +279,3 @@ Aplicación para gestionar postulaciones y tareas, permitiendo organizar informa
 ## Notas
 - La gestión de usuarios y roles no se implementa, ya que la app está pensada para uso personal y no multiusuario.
 - La autenticación protege el acceso y los datos locales.
-
-Pull Shark badge test: este PR sirve para obtener la insignia.
