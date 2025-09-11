@@ -115,41 +115,85 @@ Ejemplo: tutorial interactivo, perfil de usuario, etc.:
 
 ```
 Gestor tareas/
-├── screenshots/
-│   ├── splash01.png
-│   ├── login00.png
-│   ├── register00.png
-│   ├── dashboard00.png
-│   ├── dashboard01.png
-│   ├── table.png
-│   ├── particles00.png
-│   ├── confirm00.png
-│   ├── confirm01.png
-│   ├── darkmode00.png
-│   ├── darkmode01.png
-│   ├── mobile00.png
-│   ├── mobile01.png
-│   ├── mobile02.png
-│   ├── export00.png
-│   ├── export01.png
-│   ├── extra00.png
-│   ├── extra01.png
-│   └── extra02.png
 ├── public/
 │   └── cursor-perrito.svg
 ├── src/
-│   ├── App.jsx, App.css, main.jsx, index.css, theme.js
+│   ├── App.jsx
+│   ├── App.css
+│   ├── main.jsx
+│   ├── index.css
+│   ├── theme.js
 │   ├── components/
+│   │   ├── auth/
+│   │   │   ├── LoginForm.jsx
+│   │   │   ├── LoginForm.css
+│   │   │   ├── RegisterForm.jsx
+│   │   │   ├── RegisterForm.css
+│   │   ├── perfiles/
+│   │   │   ├── ProfileSelector.jsx
+│   │   │   ├── ProfileSelector.css
+│   │   ├── curriculums/
+│   │   │   ├── CurriculumSection.jsx
+│   │   │   ├── CurriculumSection.css
+│   │   ├── postulaciones/
+│   │   │   ├── PostulacionesTable.jsx
+│   │   │   ├── PostulacionesTable.css
+│   │   ├── SplashScreen.jsx
+│   │   ├── SplashScreen.css
+│   │   ├── AnimatedCube.jsx
+│   │   ├── AnimatedCube.css
+│   │   ├── InteractiveHummingbird.jsx
+│   │   ├── InteractiveHummingbird.css
+│   │   ├── ConfirmDialog.jsx
+│   │   ├── ConfirmDialog.css
+│   │   ├── AnimatedAlert.jsx
+│   │   ├── AnimatedAlert.css
+│   │   ├── AnimatedBackground.jsx
+│   │   ├── AnimatedBackground.css
+│   │   ├── ParticlesBackground.jsx
+│   │   ├── ParticlesBackground.css
+│   │   ├── AnimationControlPanel.jsx
+│   │   ├── AnimationControlPanel.css
+│   ├── styles/
+│   │   ├── global.css
+│   │   ├── animatedBackground.css
+│   │   ├── particles.css
+│   ├── constants/
+│   │   ├── quotes.js
+│   │   ├── sections.js
+│   ├── context/
+│   │   ├── AuthContext.jsx
+│   │   ├── ThemeModeContext.jsx
+│   ├── data/
+│   │   ├── quotes.js
+│   ├── hooks/
+│   │   ├── useCurriculums.js
+│   │   ├── usePostulaciones.js
+│   ├── i18n/
+│   │   ├── en.json
+│   │   ├── es.json
+│   ├── routes/
+│   │   ├── AppRoutes.jsx
+│   ├── services/
+│   ├── tests/
+│   ├── types/
+│   ├── utils/
+│   │   ├── notify.js
+│   │   ├── validations.js
 ├── index.html
 ├── vite.config.js
 ├── README.md
-    ---
+├── backups/
+│   └── ...
+├── screenshots/
+│   └── ...
+```
 
-	## 📄 Licencia
-
-	Este proyecto se distribuye bajo la licencia MIT. Puedes consultar el archivo LICENSE para más detalles.
 ---
 
+## 📄 Licencia
+
+Este proyecto se distribuye bajo la licencia MIT. Puedes consultar el archivo LICENSE para más detalles.
 ## 🗺️ Roadmap
 
 ## 🎯 Objetivo del proyecto

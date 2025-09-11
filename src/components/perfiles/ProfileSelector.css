@@ -3,7 +3,7 @@
   margin-bottom: 1.5rem;
   border-radius: 18px;
   box-shadow: 0 2px 12px rgba(114,89,182,0.10);
-  background: linear-gradient(90deg,#a259b6 0%,#43e97b 100%);
+  background: linear-gradient(90deg, rgba(132,42,155,1) 0%, rgba(46,3,3,1) 60%, rgba(237,221,83,1) 100%);
   width: 100%;
   max-width: 100%;
   display: flex;
@@ -11,23 +11,75 @@
   align-items: center;
 }
 
-.ps-title {
-  color: #fff;
-  margin-bottom: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  font-size: 1.15rem;
-  text-align: center;
-}
-
-.ps-stack {
-  flex-wrap: wrap;
+/* Limpieza y corrección de estilos para el box de edición de perfil */
+.ps-edit-box {
+  background: #faf9fd;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(114,89,182,0.13);
+  padding: 1.2rem 1.5rem;
+  margin-top: 1.2rem;
   width: 100%;
-  margin-bottom: 1.2rem;
-  gap: 1rem;
+  max-width: 340px;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #a259b6;
+}
+.ps-edit-title {
+  color: #7c3fa6;
+  font-weight: 800;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+/* Ajuste para evitar superposición y bugs en el input de nombre */
+.ps-edit-input .MuiInputLabel-root {
+  color: #7c3fa6 !important;
+  font-weight: 700;
+  background: #faf9fd;
+  padding: 0 4px;
+  z-index: 2;
+}
+.ps-edit-input .MuiOutlinedInput-root {
+  background: #fff;
+  border-radius: 8px;
+  border: 1.5px solid #a259b6;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #5c4b7c;
+}
+.ps-edit-input .MuiOutlinedInput-notchedOutline {
+  border-color: #a259b6 !important;
+}
+.ps-edit-input input::placeholder {
+  color: #7c3fa6 !important;
+  opacity: 0.8;
+}
+.ps-edit-color-row label,
+.ps-edit-color-row input {
+  color: #6d4e9c !important;
+  font-weight: 600;
+}
+.ps-btn-create {
+  background: #43e97b !important;
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(67,233,123,0.12);
+}
+.ps-btn-create:hover {
+  background: #34c77b !important;
+}
+.ps-btn-cancel {
+  color: #a259b6 !important;
+  border-color: #a259b6 !important;
+  font-weight: 700;
+}
+.ps-btn-cancel:hover {
+  background: #f3eafd !important;
+}
+.ps-btn-cancel:hover {
+  background: #f3eafd !important;
 }
 
 .ps-profile {

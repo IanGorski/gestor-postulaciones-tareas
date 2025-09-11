@@ -5,29 +5,31 @@ import RegisterForm from './components/auth/RegisterForm';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function AuthGate({ children }) {
   const { user, loading, logout } = useAuth();
-  const [showRegister, setShowRegister] = React.useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   if (loading) return <Box sx={{ mt: 8, textAlign: 'center' }}><CircularProgress /></Box>;
   if (!user) {
-    return (
-      <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent' }}>
-        <Box sx={{ maxWidth: 340, width: '100%' }}>
-          {showRegister ? (
-            <RegisterForm onSwitch={() => setShowRegister(false)} />
-          ) : (
-            <LoginForm onSwitch={() => setShowRegister(true)} />
-          )}
-        </Box>
-      </Box>
-    );
+    if (location.pathname === '/register') {
+      return <RegisterForm />;
+    }
+    // Puedes agregar más rutas si lo necesitas
+    return <LoginForm />;
   }
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <>
       <Box sx={{ position: 'fixed', top: 12, right: 18, zIndex: 2000 }}>
-        <Button variant="outlined" color="secondary" size="small" onClick={logout}>Cerrar sesión</Button>
+        <Button variant="outlined" color="secondary" size="small" onClick={handleLogout}>Cerrar sesión</Button>
       </Box>
       {children}
     </>

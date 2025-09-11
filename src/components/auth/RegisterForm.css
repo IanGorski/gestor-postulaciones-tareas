@@ -1,82 +1,99 @@
-.register-form-container {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: transparent;
-	z-index: 1000;
+.register-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f7fb;
 }
-
-.register-form-container form {
-	background: var(--mui-palette-background-paper, #fff);
-	border-radius: 16px;
-	box-shadow: 0 4px 24px rgba(80, 0, 120, 0.12);
-	padding: 2rem 2.5rem;
-	max-width: 400px;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
+.register-visual {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a259b6 0%, #43e97b 100%);
 }
-
-.register-form-title {
-	font-family: 'Poppins', sans-serif;
-	font-size: 2rem;
-	color: var(--mui-palette-primary-main, #7c3aed);
-	text-align: center;
-	margin-bottom: 1rem;
+.register-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 2.5rem;
+  background: #fff;
+  box-shadow: 0 2px 24px rgba(114,89,182,0.10);
+  border-radius: 0 18px 18px 0;
 }
-
-.register-form-input {
-	width: 100%;
-	font-size: 1rem;
-	padding: 0.75rem 1rem;
-	border-radius: 8px;
-	border: 1px solid var(--mui-palette-divider, #e0e0e0);
-	background: var(--mui-palette-background-default, #f9f9fb);
-	transition: border-color 0.2s;
+.register-form h2 {
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
 }
-
-.register-form-input:focus {
-	border-color: var(--mui-palette-primary-main, #7c3aed);
-	outline: none;
+.register-form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
-
-.register-form-button {
-	background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
-	color: #fff;
-	font-weight: 600;
-	border: none;
-	border-radius: 8px;
-	padding: 0.75rem 1.5rem;
-	cursor: pointer;
-	box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08);
-	transition: background 0.2s;
+.register-form label {
+  font-weight: 600;
+  color: #7c3fa6;
+  margin-bottom: 0.3rem;
 }
-
-.register-form-button:hover {
-	background: linear-gradient(90deg, #a78bfa 0%, #7c3aed 100%);
+.register-form input {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #a259b6;
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #5c4b7c;
+  background: #faf9fd;
+  outline: none;
+  transition: border 0.2s;
 }
-
-.register-form-link {
-	color: var(--mui-palette-primary-main, #7c3aed);
-	text-decoration: underline;
-	font-size: 0.95rem;
-	text-align: center;
-	margin-top: 0.5rem;
-	cursor: pointer;
+.register-form input:focus {
+  border-color: #43e97b;
 }
-
-@media (max-width: 500px) {
-	.register-form-container form {
-		padding: 1rem;
-		max-width: 95vw;
-	}
-	.register-form-title {
-		font-size: 1.5rem;
-	}
+.register-form button {
+  background: #a259b6;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(67,233,123,0.12);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.register-form button:hover {
+  background: #43e97b;
+}
+.register-links {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.register-links a {
+  color: #7c3fa6;
+  font-size: 0.98rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.register-links a:hover {
+  color: #43e97b;
+}
+@media (max-width: 900px) {
+  .register-container {
+    flex-direction: column;
+  }
+  .register-visual {
+    min-height: 220px;
+    border-radius: 18px 18px 0 0;
+  }
+  .register-form {
+    border-radius: 0 0 18px 18px;
+    padding: 2rem 1rem;
+    align-items: center;
+  }
 }

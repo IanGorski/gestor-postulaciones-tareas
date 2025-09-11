@@ -15,7 +15,7 @@
     <!-- Nariz -->
     <ellipse cx="24" cy="22" rx="1.2" ry="0.8" fill="#734a91"/>
     <!-- Boca -->
-    <path d="M22 24 Q24 26 26 24" stroke="#734a91" stroke-width="1" fill="none"/>
+    <path d="M22 24 Q24 22 26 24" stroke="#734a91" stroke-width="1" fill="none"/>
     <!-- Mejilla izquierda -->
     <ellipse cx="19" cy="21" rx="1.2" ry="0.7" fill="#fff" opacity=".5"/>
     <!-- Mejilla derecha -->
