@@ -1,0 +1,16 @@
+.lp-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e040fb 0%, #a259b6 70%, #7c3aed 100%);
+  color: #fff;
+}
+.lp-root h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.lp-root p {
+  font-size: 1.2rem;
+}
