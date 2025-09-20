@@ -30,6 +30,8 @@ function ProfileSelector({ activeProfile, setActiveProfile }) {
         return defaultProfiles;
     });
     const [editing, setEditing] = useState(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editProfile, setEditProfile] = useState({ name: '', color: '#a259b6', avatar: '' });
     const [newProfile, setNewProfile] = useState({ name: '', color: '#a259b6', avatar: '' });
     const [confirm, setConfirm] = useState({ open: false, id: null });
 
@@ -48,8 +50,9 @@ function ProfileSelector({ activeProfile, setActiveProfile }) {
         setNewProfile({ name: '', color: '#a259b6', avatar: '' });
     };
 
-    const handleEdit = (id, data) => {
-        setProfiles(profiles.map(p => p.id === id ? { ...p, ...data } : p));
+    const handleEdit = (id) => {
+        // Solo actualiza el perfil y cierra el modal al hacer clic en 'Guardar'
+        setProfiles(prev => prev.map(p => p.id === id ? { ...p, ...editProfile } : p));
         setEditing(null);
     };
 
@@ -96,19 +99,27 @@ function ProfileSelector({ activeProfile, setActiveProfile }) {
                             </IconButton>
                             <Typography variant="body2" className="ps-profile-name">{profile.name}</Typography>
                             <Stack direction="row" spacing={0.5} className="ps-profile-actions">
-                                <IconButton size="small" onClick={() => setEditing(profile.id)} className="ps-btn-edit"><EditIcon fontSize="small" className="ps-icon-edit" /></IconButton>
+                                <IconButton size="small" onClick={() => {
+                                    setEditing(profile.id);
+                                    setEditProfile({
+                                        name: profile.name,
+                                        color: profile.color,
+                                        avatar: profile.avatar
+                                    });
+                                    setIsEditModalOpen(true);
+                                }} className="ps-btn-edit"><EditIcon fontSize="small" className="ps-icon-edit" /></IconButton>
                                 <IconButton size="small" onClick={() => handleDelete(profile.id)} className="ps-btn-delete"><DeleteIcon fontSize="small" className="ps-icon-delete" /></IconButton>
                             </Stack>
                         </Motion.div>
                     ))}
                     <Motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.98 }} className="ps-profile ps-profile-new">
-                        <IconButton onClick={() => setEditing('new')} className="ps-btn-avatar ps-btn-avatar-new">
+                        <IconButton onClick={() => { setEditing('new'); setIsEditModalOpen(true); }} className="ps-btn-avatar ps-btn-avatar-new">
                             <AddIcon className="ps-icon-add" />
                         </IconButton>
                         <Typography variant="body2" className="ps-profile-name">Nuevo</Typography>
                     </Motion.div>
                 </Stack>
-                {editing && (
+                {isEditModalOpen && (
                     <Box className="ps-edit-box">
                         <Typography variant="subtitle1" className="ps-edit-title">
                             {editing === 'new' ? 'Crear perfil' : 'Editar perfil'}
@@ -116,10 +127,10 @@ function ProfileSelector({ activeProfile, setActiveProfile }) {
                         <Stack spacing={1.5}>
                             <TextField
                                 label="Nombre"
-                                value={editing === 'new' ? newProfile.name : profiles.find(p => p.id === editing)?.name || ''}
+                                value={editing === 'new' ? newProfile.name : editProfile.name}
                                 onChange={e => {
                                     if (editing === 'new') setNewProfile({ ...newProfile, name: e.target.value });
-                                    else handleEdit(editing, { name: e.target.value });
+                                    else setEditProfile(prev => ({ ...prev, name: e.target.value }));
                                 }}
                                 fullWidth
                                 size="small"
@@ -129,22 +140,22 @@ function ProfileSelector({ activeProfile, setActiveProfile }) {
                                 <TextField
                                     label="Color"
                                     type="color"
-                                    value={editing === 'new' ? newProfile.color : profiles.find(p => p.id === editing)?.color || '#a259b6'}
+                                    value={editing === 'new' ? newProfile.color : editProfile.color}
                                     onChange={e => {
                                         if (editing === 'new') setNewProfile({ ...newProfile, color: e.target.value });
-                                        else handleEdit(editing, { color: e.target.value });
+                                        else setEditProfile(prev => ({ ...prev, color: e.target.value }));
                                     }}
                                     className="ps-edit-color-input"
                                     size="small"
                                 />
-                                <ColorLensIcon className="ps-edit-color-icon" style={{ color: editing === 'new' ? newProfile.color : profiles.find(p => p.id === editing)?.color || '#a259b6' }} />
+                                <ColorLensIcon className="ps-edit-color-icon" style={{ color: editing === 'new' ? newProfile.color : editProfile.color }} />
                             </Stack>
                             <TextField
                                 label="Foto (URL)"
-                                value={editing === 'new' ? newProfile.avatar : profiles.find(p => p.id === editing)?.avatar || ''}
+                                value={editing === 'new' ? newProfile.avatar : editProfile.avatar}
                                 onChange={e => {
                                     if (editing === 'new') setNewProfile({ ...newProfile, avatar: e.target.value });
-                                    else handleEdit(editing, { avatar: e.target.value });
+                                    else setEditProfile(prev => ({ ...prev, avatar: e.target.value }));
                                 }}
                                 fullWidth
                                 size="small"
@@ -152,11 +163,11 @@ function ProfileSelector({ activeProfile, setActiveProfile }) {
                             />
                             <Stack direction="row" spacing={1.5} justifyContent="flex-end" className="ps-edit-actions">
                                 {editing === 'new' ? (
-                                    <Button variant="contained" color="success" onClick={handleAdd} size="small" className="ps-btn-create">Crear</Button>
+                                    <Button variant="contained" color="success" onClick={() => { handleAdd(); setIsEditModalOpen(false); setEditing(null); }} size="small" className="ps-btn-create">Crear</Button>
                                 ) : (
-                                    <Button variant="contained" color="primary" onClick={() => setEditing(null)} size="small" className="ps-btn-save">Guardar</Button>
+                                    <Button variant="contained" color="primary" onClick={() => { handleEdit(editing); setIsEditModalOpen(false); }} size="small" className="ps-btn-save">Guardar</Button>
                                 )}
-                                <Button variant="outlined" color="error" onClick={() => setEditing(null)} size="small" className="ps-btn-cancel">Cancelar</Button>
+                                <Button variant="outlined" color="error" onClick={() => { setIsEditModalOpen(false); setEditing(null); }} size="small" className="ps-btn-cancel">Cancelar</Button>
                             </Stack>
                         </Stack>
                     </Box>
