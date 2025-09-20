@@ -1,4 +1,4 @@
-# Gestor de Postulaciones y Tareas (EN DESARROLLO)
+# Gestor de Postulaciones y Tareas
 
 **Autor:** Ian Gorski
 
@@ -271,9 +271,6 @@ Aplicación para gestionar postulaciones y tareas, permitiendo organizar informa
 
 ## 🛠️ Notas técnicas
 
-
-
-
 ## 🧩 Esqueleto profesional de la autenticación animada
 
 ### Estructura principal
@@ -295,9 +292,6 @@ Aplicación para gestionar postulaciones y tareas, permitiendo organizar informa
 - [✅] Centrado vertical y horizontal en desktop.
 - [✅] Animación fluida y sin saltos visuales al abrir teclado móvil.
 - [✅] Accesibilidad básica (aria-labels, contraste, navegación teclado).
-
-### Detalles técnicos
-
 
 ---
 
@@ -359,5 +353,3 @@ Aplicación para gestionar postulaciones y tareas, permitiendo organizar informa
 ## Notas
 - La gestión de usuarios y roles no se implementa, ya que la app está pensada para uso personal y no multiusuario.
 - La autenticación protege el acceso y los datos locales.
-
-Pull Shark badge test: este PR sirve para obtener la insignia.

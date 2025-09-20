@@ -57,6 +57,7 @@ export default function LoginForm({ onSwitch }) {
               onChange={e => setPassword(e.target.value)}
               required
               style={{ width: '100%', paddingRight: '2.5rem' }}
+              autocomplete="current-password"
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
