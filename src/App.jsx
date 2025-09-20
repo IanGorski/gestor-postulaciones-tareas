@@ -1,3 +1,4 @@
+import MotivationalQuote from './components/MotivationalQuote';
 import ConfirmDialog from './components/shared/ConfirmDialog';
 import { motion } from 'framer-motion';
 import './styles/global.css';
@@ -187,26 +188,27 @@ function App() {
         onCancel={closeConfirm}
         onConfirm={confirm.onConfirm || closeConfirm}
       />
-      {noProfiles ? (
-        <Container maxWidth="sm" sx={{ mt: 8 }}>
+      <Container maxWidth={noProfiles ? "sm" : "xl"} sx={{ mt: 8 }}>
+        {noProfiles && (
           <Typography variant="h5" align="center" sx={{ mb: 3, fontWeight: 700 }}>
             ¡Bienvenido! Crea tu primer perfil para comenzar
           </Typography>
-          <ProfileSelector activeProfile={activeProfile} setActiveProfile={setActiveProfile} />
-        </Container>
-      ) : (
+        )}
+        <ProfileSelector activeProfile={activeProfile} setActiveProfile={setActiveProfile} />
+        <Snackbar
+          open={snack.open}
+          autoHideDuration={2500}
+          onClose={() => setSnack((s) => ({ ...s, open: false }))}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <MuiAlert elevation={6} variant="filled" severity={snack.severity} onClose={() => setSnack((s) => ({ ...s, open: false }))}>
+            {snack.message}
+          </MuiAlert>
+        </Snackbar>
+      </Container>
+      {/* El resto del layout (animaciones, tabla, etc) */}
+      { !noProfiles && (
         <>
-          <ProfileSelector activeProfile={activeProfile} setActiveProfile={setActiveProfile} />
-          <Snackbar
-            open={snack.open}
-            autoHideDuration={2500}
-            onClose={() => setSnack((s) => ({ ...s, open: false }))}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          >
-            <MuiAlert elevation={6} variant="filled" severity={snack.severity} onClose={() => setSnack((s) => ({ ...s, open: false }))}>
-              {snack.message}
-            </MuiAlert>
-          </Snackbar>
           {showAnimations && showParticles && (
             <Suspense fallback={null}>
               <ParticlesBackground density={particlesDensity} speed={animSpeed} />
