@@ -91,7 +91,8 @@ function PostulacionesTable(props) {
     },
     handleExportExcel = () => {},
     handleImportCSV = () => {},
-    isEditingRow = () => false,
+  editing = {},
+  isEditingRow = (rowIdx) => editing && editing.row === rowIdx,
   } = props;
 
   const editInputRefs = useRef({});
