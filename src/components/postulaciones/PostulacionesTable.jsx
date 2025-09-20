@@ -167,8 +167,15 @@ function PostulacionesTable(props) {
           size="small"
           sx={{
             width: { xs: '100%', sm: 300, md: 350 },
-            background: '#fff',
+            background: (theme) => theme.palette.mode === 'dark' ? '#23232b' : '#fff',
+            color: (theme) => theme.palette.mode === 'dark' ? '#fff' : '#3c3c3c',
             borderRadius: 1,
+            '& .MuiInputBase-input': {
+              color: (theme) => theme.palette.mode === 'dark' ? '#fff' : '#3c3c3c',
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: (theme) => theme.palette.mode === 'dark' ? '#a259b6' : '#ccc',
+            },
           }}
           aria-label="Buscar por sección"
         />
